@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace MyLibrary.Domain.Dto
+namespace MyLibrary.Domain.Dto.Editorial
 {
-    public class EditorialDto
+    public class InsertEditorialDto
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "El nombre es requerido")]
         [MaxLength(100)]
         public string Name { get; set; }

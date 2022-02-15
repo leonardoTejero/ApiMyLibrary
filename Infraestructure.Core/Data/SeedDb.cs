@@ -346,6 +346,7 @@ namespace Infraestructure.Core.Data
             }
         }
 
+        //Asigna todos los permisos al administrador
         private async Task CheckRolPermissonAsync()
         {
             if (!_context.RolPermissionEntity.Where(x => x.IdRol == (int)Enums.RolUser.Administrador).Any())

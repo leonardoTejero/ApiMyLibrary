@@ -62,6 +62,7 @@ namespace ApiLibrary
             #region Jwt Token Configuration 2/2
             JwtConfigurationHandler.ConfigureUseAuthentication(app);
             #endregion
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

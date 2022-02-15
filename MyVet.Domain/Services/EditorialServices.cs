@@ -2,6 +2,7 @@
 using Infraestructure.Entity.Model.Library;
 using Infraestructure.Entity.Model.Vet;
 using MyLibrary.Domain.Dto;
+using MyLibrary.Domain.Dto.Editorial;
 using MyLibrary.Domain.Services.Interface;
 using MyVet.Domain.Dto;
 using System;
@@ -60,7 +61,7 @@ namespace MyLibrary.Domain.Services
             return response;
         }
 
-        public async Task<bool> InsertEditorialAsync(EditorialDto editorial, int idUser)
+        public async Task<bool> InsertEditorialAsync(InsertEditorialDto editorial, int idUser)
         {
             UserEditorialEntity userEditorialEntity = new UserEditorialEntity()
             {

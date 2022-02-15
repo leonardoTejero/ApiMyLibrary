@@ -2,6 +2,7 @@
 using Infraestructure.Core.UnitOfWork.Interface;
 using Infraestructure.Entity.Model.Vet;
 using MyLibrary.Domain.Dto;
+using MyLibrary.Domain.Dto.Book;
 using MyLibrary.Domain.Services.Interface;
 using MyVet.Domain.Dto;
 using System;
@@ -27,14 +28,14 @@ namespace MyLibrary.Domain.Services
 
         #region Methods
 
-        public List<BookDto> GetAllMyBooks(int idUser)
+        public List<ConsultBookDto> GetAllMyBooks(int idUser)
         {
             var book = _unitOfWork.BookRepository.FindAll(x => x.EditorialEntity.UserEditorialEntity.IdUser == idUser,
                                                              p => p.EditorialEntity,
                                                              p => p.StateEntity);
 
 
-            List<BookDto> listBooks = book.Select(x => new BookDto
+            List<ConsultBookDto> listBooks = book.Select(x => new ConsultBookDto
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -42,7 +43,7 @@ namespace MyLibrary.Domain.Services
                 IdEditorial = x.IdEditorial,
                 Editorial = x.EditorialEntity.Name,
                 IdState = x.IdState,
-                //IdUserLibrarian = x.IdUserLibrarian,
+                IdUserLibrarian = x.IdUserLibrarian,
                 Estado = x.StateEntity.State,
              
             }).ToList();
@@ -50,7 +51,7 @@ namespace MyLibrary.Domain.Services
             return listBooks;
         }
 
-        public async Task<bool> InsertBookAsync(BookDto book)
+        public async Task<bool> InsertBookAsync(InsertBookDto book)
         {
 
             BookEntity books = new BookEntity()
@@ -72,6 +73,7 @@ namespace MyLibrary.Domain.Services
             _unitOfWork.BookRepository.Delete(idBook);
 
             response.IsSuccess = await _unitOfWork.Save() > 0;
+
             if (response.IsSuccess)
                 response.Message = "Se elminnó correctamente el libro";
             else

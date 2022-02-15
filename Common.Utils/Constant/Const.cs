@@ -8,7 +8,7 @@
                 IdUser = "IdUser",
                 UserName = "UserName",
                 Email = "Email",
-                IdRol = "IdRol";
+                IdRol = "IdRol"; 
         }
     }
 }

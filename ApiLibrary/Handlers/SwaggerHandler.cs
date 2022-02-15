@@ -21,16 +21,16 @@ namespace Vet.Handlers
                     Description = "Api de My library",
                     Contact = new OpenApiContact
                     {
-                        Name = "Andres",
-                        Email = "",
-                        Url = new Uri("https://www.linkedin.com/in/juan-rodriguez-34ab5b164/"),
+                        Name = "Andres Tejero",
+                        Email = "Leonardo.tejero4@gmail.com",
+                        Url = new Uri("https://www.linkedin.com/in/leonardo-tejero-8a0b3a152/"),
                     }
                 });
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath); //documentacion
 
                 // To Enable authorization using Swagger (JWT)
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()

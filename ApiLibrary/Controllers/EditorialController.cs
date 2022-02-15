@@ -2,9 +2,11 @@
 using Common.Utils.Enums;
 using Common.Utils.Helpers;
 using Common.Utils.Resorces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLibrary.Domain.Dto;
+using MyLibrary.Domain.Dto.Editorial;
 using MyLibrary.Domain.Services.Interface;
 using MyVet.Domain.Dto;
 using System;
@@ -14,6 +16,7 @@ using static Common.Utils.Constant.Const;
 
 namespace ApiLibrary.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [TypeFilter(typeof(CustomExceptionHandler))]
@@ -44,7 +47,9 @@ namespace ApiLibrary.Controllers
         [CustomPermissionFilter(Enums.Permission.ConsultarEditorial)]
         public IActionResult GetAllMyEditoriales()
         {
+            //Traer el idUser por token
             string idUser = Utils.GetClaimValue(Request.Headers["Authorization"], TypeClaims.IdUser);
+
             List<EditorialDto> list = _editorialServices.GetAllMyEditorial(Convert.ToInt32(idUser));
 
             ResponseDto response = new ResponseDto()
@@ -92,7 +97,7 @@ namespace ApiLibrary.Controllers
         [HttpPost]
         [Route("InsertEditorial")]
         [CustomPermissionFilter(Enums.Permission.CrearEditorial)]
-        public async Task<IActionResult> InsertEditorial(EditorialDto editorial)
+        public async Task<IActionResult> InsertEditorial(InsertEditorialDto editorial)
         {
             IActionResult response;
             string idUser = Utils.GetClaimValue(Request.Headers["Authorization"], TypeClaims.IdUser);

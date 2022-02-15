@@ -24,14 +24,13 @@ namespace Infraestructure.Entity.Model.Vet
         public int IdEditorial { get; set; }
         public EditorialEntity EditorialEntity { get; set; }
 
-        [ForeignKey("UserLibrarianEntity")]
-        public int? IdUserLibrarian { get; set; }
-
-
         [ForeignKey("StateEntity")]
         public int IdState { get; set; }
         public StateEntity StateEntity { get; set; }
 
-        public UserEntity UserLibrariantEntity { get; set; }
+        [ForeignKey("UserLibrarianEntity")]
+        public int? IdUserLibrarian { get; set; }
+
+        public UserEntity UserLibrarianEntity { get; set; }
     }
 }

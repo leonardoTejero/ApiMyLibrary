@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyLibrary.Domain.Dto;
+using MyLibrary.Domain.Dto.Book;
 using MyLibrary.Domain.Services.Interface;
 using MyVet.Domain.Dto;
 using System;
@@ -15,6 +16,7 @@ using static Common.Utils.Constant.Const;
 
 namespace ApiLibrary.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [TypeFilter(typeof(CustomExceptionHandler))]
@@ -46,7 +48,9 @@ namespace ApiLibrary.Controllers
         public IActionResult GetAllMyBooks()
         {
             string idUser = Utils.GetClaimValue(Request.Headers["Authorization"], TypeClaims.IdUser);
-            List<BookDto> result = _bookServices.GetAllMyBooks(Convert.ToInt32(idUser));
+
+            List<ConsultBookDto> result = _bookServices.GetAllMyBooks(Convert.ToInt32(idUser));
+
             ResponseDto response = new ResponseDto()
             {
                 IsSuccess = true,
@@ -67,7 +71,7 @@ namespace ApiLibrary.Controllers
         [HttpPost]
         [Route("InsertBook")]
         [CustomPermissionFilter(Enums.Permission.CrearLibro)]
-        public async Task<IActionResult> InsertBook(BookDto book)
+        public async Task<IActionResult> InsertBook(InsertBookDto book)
         {
             IActionResult response; // bandera
 
