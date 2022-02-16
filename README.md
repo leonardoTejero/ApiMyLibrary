@@ -1,5 +1,4 @@
 # ApiMyLibrary
-Api Library
 Ya existe dos usuarios creados por data semilla y tienen asignados los roles y permisos
 
 1. usuario administrador con todos los permisos
