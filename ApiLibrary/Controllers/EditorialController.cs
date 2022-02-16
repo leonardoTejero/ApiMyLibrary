@@ -36,21 +36,18 @@ namespace ApiLibrary.Controllers
         #region Methods
 
         /// <summary>
-        /// Obtener todas las editoriales de un usuario
+        /// Obtener todas las editoriales
         /// </summary>
         /// <returns></returns>
         /// <response code="200">OK! </response>
         /// <response code="400">Business Exception</response>
         /// <response code="500">Oops! Can't process your request now</response>
         [HttpGet]
-        [Route("GetAllMyEditoriales")]
+        [Route("GetAllEditoriales")]
         [CustomPermissionFilter(Enums.Permission.ConsultarEditorial)]
-        public IActionResult GetAllMyEditoriales()
+        public IActionResult GetAllEditoriales()
         {
-            //Traer el idUser por token
-            string idUser = Utils.GetClaimValue(Request.Headers["Authorization"], TypeClaims.IdUser);
-
-            List<EditorialDto> list = _editorialServices.GetAllMyEditorial(Convert.ToInt32(idUser));
+            List<EditorialDto> list = _editorialServices.GetAllEditorial();
 
             ResponseDto response = new ResponseDto()
             {
@@ -87,7 +84,7 @@ namespace ApiLibrary.Controllers
         }
 
         /// <summary>
-        /// Agregar una nueva editorial (para el usuario que hace el proceso)
+        /// Agregar una nueva editorial 
         /// </summary>
         /// <param name="Editorial"></param>
         /// <returns></returns>
@@ -120,7 +117,7 @@ namespace ApiLibrary.Controllers
         }
 
         /// <summary>
-        /// Actualziar una editorial en específico
+        /// Actualizar una editorial en específico
         /// </summary>
         /// <param name="editorial"></param>
         /// <returns></returns>

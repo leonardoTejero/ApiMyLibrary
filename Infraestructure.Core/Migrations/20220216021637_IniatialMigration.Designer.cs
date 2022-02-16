@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Core.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220211001346_initial-Migration")]
-    partial class initialMigration
+    [Migration("20220216021637_IniatialMigration")]
+    partial class IniatialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -231,16 +231,13 @@ namespace Infraestructure.Core.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("UserLibrariantEntityIdUser")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdEditorial");
 
                     b.HasIndex("IdState");
 
-                    b.HasIndex("UserLibrariantEntityIdUser");
+                    b.HasIndex("IdUserLibrarian");
 
                     b.ToTable("Book","Library");
                 });
@@ -341,9 +338,9 @@ namespace Infraestructure.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Infraestructure.Entity.Model.UserEntity", "UserLibrariantEntity")
+                    b.HasOne("Infraestructure.Entity.Model.UserEntity", "UserLibrarianEntity")
                         .WithMany()
-                        .HasForeignKey("UserLibrariantEntityIdUser");
+                        .HasForeignKey("IdUserLibrarian");
                 });
 #pragma warning restore 612, 618
         }

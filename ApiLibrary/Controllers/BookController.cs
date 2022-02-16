@@ -36,20 +36,18 @@ namespace ApiLibrary.Controllers
         #region Methods
 
         /// <summary>
-        /// Obtener mis libros
+        /// Obtener todos los libros
         /// </summary>
         /// <returns></returns>
         /// <response code="200">OK! </response>
         /// <response code="400">Business Exception</response>
         /// <response code="500">Oops! Can't process your request now</response>
         [HttpGet]
-        [Route("GetAllMyBooks")]
+        [Route("GetAllBooks")]
         [CustomPermissionFilter(Enums.Permission.ConsultarLibros)]
-        public IActionResult GetAllMyBooks()
+        public IActionResult GetAllBooks()
         {
-            string idUser = Utils.GetClaimValue(Request.Headers["Authorization"], TypeClaims.IdUser);
-
-            List<ConsultBookDto> result = _bookServices.GetAllMyBooks(Convert.ToInt32(idUser));
+            List<ConsultBookDto> result = _bookServices.GetAllBooks();
 
             ResponseDto response = new ResponseDto()
             {

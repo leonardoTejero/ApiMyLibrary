@@ -29,11 +29,9 @@ namespace MyLibrary.Domain.Services
 
         #region Methods
 
-        public List<EditorialDto> GetAllMyEditorial(int idUser)
+        public List<EditorialDto> GetAllEditorial()
         {
-            var editorial = _unitOfWork.EditorialRepository.FindAll(x => x.UserEditorialEntity.IdUser == idUser,
-                                                        p => p.UserEditorialEntity).ToList();
-
+            var editorial = _unitOfWork.EditorialRepository.GetAll(p => p.UserEditorialEntity).ToList();
 
             List<EditorialDto> list = editorial.Select(x => new EditorialDto
             { 

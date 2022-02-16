@@ -28,11 +28,11 @@ namespace MyLibrary.Domain.Services
 
         #region Methods
 
-        public List<ConsultBookDto> GetAllMyBooks(int idUser)
+        public List<ConsultBookDto> GetAllBooks()
         {
-            var book = _unitOfWork.BookRepository.FindAll(x => x.EditorialEntity.UserEditorialEntity.IdUser == idUser,
-                                                             p => p.EditorialEntity,
-                                                             p => p.StateEntity);
+            var book = _unitOfWork.BookRepository.GetAll(p => p.EditorialEntity,
+                                                          p => p.StateEntity);
+
 
 
             List<ConsultBookDto> listBooks = book.Select(x => new ConsultBookDto
@@ -43,7 +43,7 @@ namespace MyLibrary.Domain.Services
                 IdEditorial = x.IdEditorial,
                 Editorial = x.EditorialEntity.Name,
                 IdState = x.IdState,
-                IdUserLibrarian = x.IdUserLibrarian,
+                //IdUserLibrarian = x.IdUserLibrarian,
                 Estado = x.StateEntity.State,
              
             }).ToList();

@@ -1,11 +1,9 @@
 ﻿using Common.Utils.Enums;
 using Infraestructure.Entity.Model;
 using Infraestructure.Entity.Model.Master;
-using Infraestructure.Entity.Model.Vet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infraestructure.Core.Data
@@ -31,6 +29,8 @@ namespace Infraestructure.Core.Data
             await CheckPermissionAsync();
             await CheckRolAsync();
             await CheckRolPermissonAsync();
+            await CheckUserAsync();
+            await CheckRolUserAsync();
 
         }
 
@@ -359,9 +359,108 @@ namespace Infraestructure.Core.Data
 
                 _context.RolPermissionEntity.AddRange(rolesPermisosAdmin);
 
+            }
+
+            //Permisos usuario Estandar
+            if (!_context.RolPermissionEntity.Where(x => x.IdRol == (int)Enums.RolUser.Estandar).Any())
+            {
+                _context.RolPermissionEntity.AddRange(new List<RolPermissionEntity>
+                {
+                    new RolPermissionEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Estandar,
+                        IdPermission = (int)Enums.Permission.CrearLibro
+
+                    },
+                    new RolPermissionEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Estandar,
+                        IdPermission = (int)Enums.Permission.ConsultarLibros
+
+                    },
+                    new RolPermissionEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Estandar,
+                        IdPermission = (int)Enums.Permission.ActualizarLibros
+
+                    },
+                    new RolPermissionEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Estandar,
+                        IdPermission = (int)Enums.Permission.EliminarLibro
+
+                    },
+                    new RolPermissionEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Estandar,
+                        IdPermission = (int)Enums.Permission.ConsultarEditorial
+                    },
+                    new RolPermissionEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Estandar,
+                        IdPermission = (int)Enums.Permission.ConsultarEstados
+
+                    },
+                });
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task CheckUserAsync()
+        {
+
+            if (!_context.UserEntity.Any())
+            {
+                _context.UserEntity.AddRange(new List<UserEntity>
+                {
+                    new UserEntity
+                    {
+                        Name = "Leonardo",
+                        LastName = "Tejero",
+                        Email = "admin@gmail.com",
+                        Password = "admin"
+
+                    },
+                    new UserEntity
+                    {
+                        Name = "Yunior",
+                        LastName = "Castro",
+                        Email = "estandar@gmail.com",
+                        Password = "estandar"
+                    },  
+                });
 
                 await _context.SaveChangesAsync();
             }
         }
+
+        private async Task CheckRolUserAsync()
+        {
+
+            if (!_context.RolUserEntity.Any())
+            {
+                var admin = _context.UserEntity.FirstOrDefault(x => x.Email == "admin@gmail.com");
+                var estandar = _context.UserEntity.FirstOrDefault(x => x.Email == "estandar@gmail.com");  
+
+                _context.RolUserEntity.AddRange(new List<RolUserEntity>
+                {
+                    new RolUserEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Administrador,
+                        IdUser = Convert.ToInt32(admin.IdUser),
+                    },
+                     new RolUserEntity
+                    {
+                        IdRol = (int)Enums.RolUser.Estandar,
+                        IdUser = Convert.ToInt32(estandar.IdUser),
+                    },
+                });
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
     }
 }

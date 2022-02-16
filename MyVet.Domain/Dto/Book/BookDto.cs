@@ -10,9 +10,7 @@ namespace MyLibrary.Domain.Dto
     {
         [Key]
         public int Id { get; set; }
-        
         public int IdState { get; set; }
-        public int IdUser { get; set; } //????
         public int? IdUserLibrarian { get; set; }
 
     }

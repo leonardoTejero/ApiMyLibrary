@@ -10,7 +10,7 @@ namespace MyLibrary.Domain.Services.Interface
 {
     public interface IEditorialServices
     {
-        List<EditorialDto> GetAllMyEditorial(int idUser);
+        List<EditorialDto> GetAllEditorial();
         Task<ResponseDto> DeleteEditorialAsync(int idEditorial);
         Task<bool> InsertEditorialAsync(InsertEditorialDto editorial, int idUser);
         Task<bool> UpdateEditorialAsync(EditorialDto editorial);

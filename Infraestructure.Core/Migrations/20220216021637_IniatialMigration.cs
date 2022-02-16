@@ -2,7 +2,7 @@
 
 namespace Infraestructure.Core.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class IniatialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -197,9 +197,8 @@ namespace Infraestructure.Core.Migrations
                     Name = table.Column<string>(maxLength: 100, nullable: true),
                     Gender = table.Column<string>(maxLength: 100, nullable: true),
                     IdEditorial = table.Column<int>(nullable: false),
-                    IdUserLibrarian = table.Column<int>(nullable: true),
                     IdState = table.Column<int>(nullable: false),
-                    UserLibrariantEntityIdUser = table.Column<int>(nullable: true)
+                    IdUserLibrarian = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -219,8 +218,8 @@ namespace Infraestructure.Core.Migrations
                         principalColumn: "IdState",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Book_User_UserLibrariantEntityIdUser",
-                        column: x => x.UserLibrariantEntityIdUser,
+                        name: "FK_Book_User_IdUserLibrarian",
+                        column: x => x.IdUserLibrarian,
                         principalSchema: "Security",
                         principalTable: "User",
                         principalColumn: "IdUser",
@@ -269,10 +268,10 @@ namespace Infraestructure.Core.Migrations
                 column: "IdState");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_UserLibrariantEntityIdUser",
+                name: "IX_Book_IdUserLibrarian",
                 schema: "Library",
                 table: "Book",
-                column: "UserLibrariantEntityIdUser");
+                column: "IdUserLibrarian");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserEditorial_IdEditorial",

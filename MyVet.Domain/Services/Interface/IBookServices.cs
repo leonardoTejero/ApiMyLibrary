@@ -10,7 +10,7 @@ namespace MyLibrary.Domain.Services.Interface
 {
     public interface IBookServices
     {
-        List<ConsultBookDto> GetAllMyBooks(int idUser);
+        List<ConsultBookDto> GetAllBooks();
         Task<bool> InsertBookAsync(InsertBookDto book);
         Task<ResponseDto> DeleteBookAsync(int idBook);
         Task<bool> UpdateBookAsync(BookDto book);
