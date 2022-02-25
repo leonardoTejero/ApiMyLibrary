@@ -14,3 +14,4 @@ Ya existe dos usuarios creados por data semilla y tienen asignados los roles y p
 }
 
 Solo es necesario crear editoriales y libros para comprobar el funcionamiento
+Api para con crud para editoriales y libros con roles y permisos
